@@ -3,33 +3,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useWeather } from "@/hooks/use-weather";
 import { FadeIn } from "@/components/ui/fade-in";
-import { Umbrella, Sun, Wind } from "lucide-react";
+import { Umbrella, Sun, Wind, LucideIcon } from "lucide-react";
 
-function getClothingRecommendations(weather: any) {
-  const recommendations = [];
-  
-  if (weather.current.condition.text.toLowerCase().includes("дождь")) {
-    recommendations.push({
-      icon: Umbrella,
-      text: "Возьмите резиновые сапоги и дождевик"
-    });
-  }
-  
-  if (weather.current.condition.text.toLowerCase().includes("солнечно")) {
-    recommendations.push({
-      icon: Sun,
-      text: "Не забудьте головной убор и солнцезащитный крем"
-    });
-  }
-  
-  if (weather.current.wind_kph > 15) {
-    recommendations.push({
-      icon: Wind,
-      text: "Рекомендуется ветровка"
-    });
-  }
-  
-  return recommendations;
+interface WeatherData {
+  current: {
+    condition: {
+      text: string;
+    };
+    wind_kph: number;
+  };
+}
+
+interface Recommendation {
+  icon: LucideIcon;
+  text: string;
 }
 
 export function WeatherRecommendations() {
@@ -60,4 +47,31 @@ export function WeatherRecommendations() {
       </Card>
     </FadeIn>
   );
+}
+
+function getClothingRecommendations(weather: WeatherData): Recommendation[] {
+  const recommendations: Recommendation[] = [];
+  
+  if (weather.current.condition.text.toLowerCase().includes("дождь")) {
+    recommendations.push({
+      icon: Umbrella,
+      text: "Возьмите резиновые сапоги и дождевик"
+    });
+  }
+  
+  if (weather.current.condition.text.toLowerCase().includes("солнечно")) {
+    recommendations.push({
+      icon: Sun,
+      text: "Не забудьте головной убор и солнцезащитный крем"
+    });
+  }
+  
+  if (weather.current.wind_kph > 15) {
+    recommendations.push({
+      icon: Wind,
+      text: "Рекомендуется ветровка"
+    });
+  }
+  
+  return recommendations;
 } 

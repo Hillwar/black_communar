@@ -1,4 +1,6 @@
-export const JULY_EVENTS = [
+import { Events } from "@/types";
+
+export const JULY_EVENTS: Events = [
   {
     date: "2025-07-02",
     events: [
@@ -7,14 +9,16 @@ export const JULY_EVENTS = [
         title: "Заезд",
         description: "Распределение по отрядам, расселение",
         time: "12:00",
-        category: "CAMP"
+        category: "CAMP",
+        date: "2025-07-02"
       },
       {
         id: "2",
         title: "Вечер знакомств",
         description: "Игры на знакомство, представление служб",
         time: "19:00",
-        category: "GAME"
+        category: "GAME",
+        date: "2025-07-02"
       }
     ]
   },
@@ -26,14 +30,16 @@ export const JULY_EVENTS = [
         title: "Утренняя линейка",
         description: "Открытие смены",
         time: "09:00",
-        category: "CAMP"
+        category: "CAMP",
+        date: "2025-07-03"
       },
       {
         id: "4",
         title: "Верёвочный курс",
         description: "Командообразование",
         time: "15:00",
-        category: "GAME"
+        category: "GAME",
+        date: "2025-07-03"
       }
     ]
   },
@@ -45,7 +51,8 @@ export const JULY_EVENTS = [
         title: "Спортивные игры",
         description: "Футбол, волейбол, эстафеты",
         time: "10:00",
-        category: "SPORT"
+        category: "SPORT",
+        date: "2025-07-04"
       }
     ]
   },
@@ -57,7 +64,8 @@ export const JULY_EVENTS = [
         title: "Мастер-классы",
         description: "Творческие мастерские по интересам",
         time: "15:00",
-        category: "WORKSHOP"
+        category: "WORKSHOP",
+        date: "2025-07-05"
       }
     ]
   },
@@ -69,7 +77,8 @@ export const JULY_EVENTS = [
         title: "Вечер песни",
         description: "Песни у костра под гитару",
         time: "19:00",
-        category: "BONFIRE"
+        category: "BONFIRE",
+        date: "2025-07-06"
       }
     ]
   },
@@ -82,18 +91,20 @@ export const JULY_EVENTS = [
         title: "Прощальный концерт",
         description: "Выступления отрядов",
         time: "19:00",
-        category: "MUSIC"
+        category: "MUSIC",
+        date: "2025-07-22"
       },
       {
         id: "41",
         title: "Отъезд",
         description: "Сбор вещей, прощание",
         time: "12:00",
-        category: "CAMP"
+        category: "CAMP",
+        date: "2025-07-22"
       }
     ]
   }
-];
+] as const;
 
 export const CATEGORIES = {
   CAMP: '🏕️ Лагерь',
@@ -121,7 +132,7 @@ export const WEATHER_CONDITIONS = {
 export const CAMP_DATES = {
   START_DATE: new Date(2025, 6, 2), // Июль 2025
   END_DATE: new Date(2025, 6, 22)
-};
+} as const;
 
 export function isDateInRange(date: Date): boolean {
   return date >= CAMP_DATES.START_DATE && date <= CAMP_DATES.END_DATE;
@@ -141,7 +152,7 @@ export function isDateSelectable(date: Date): boolean {
   );
 }
 
-interface DaySchedule {
+export interface DaySchedule {
   date: string;
   title: string;
   dks?: string;
@@ -163,8 +174,18 @@ export const DAILY_SCHEDULES: DaySchedule[] = [
     dks: "Иванов Иван",
     do: "1 отряд",
     schedule: [
-      { time: "12:00", activity: "Заезд", description: "Распределение по отрядам, расселение", category: "CAMP", group: "общее" },
-      { time: "19:00", activity: "Вечер знакомств", description: "Игры на знакомство, представление служб", category: "GAME", group: "общее" }
+      { 
+        time: "12:00", 
+        activity: "Заезд", 
+        details: "Распределение по отрядам, расселение", 
+        group: "общее" 
+      },
+      { 
+        time: "19:00", 
+        activity: "Вечер знакомств", 
+        details: "Игры на знакомство, представление служб", 
+        group: "общее" 
+      }
     ]
   },
   {
@@ -267,7 +288,16 @@ export function getDaySchedule(date: Date): DaySchedule | null {
   return DAILY_SCHEDULES.find(schedule => schedule.date === dateStr) || null;
 }
 
-export const CAMP_STAFF = [
+export interface CampStaffMember {
+  id: string;
+  name: string;
+  role: string;
+  squad?: string;
+  telegram?: string;
+  phone?: string;
+}
+
+export const CAMP_STAFF: CampStaffMember[] = [
   {
     id: "1",
     name: "Валерия Хоменко",
@@ -338,4 +368,4 @@ export const CAMP_STAFF = [
     telegram: "@elena_m",
     phone: "+7 (999) 901-23-45"
   }
-]; 
+] as const; 

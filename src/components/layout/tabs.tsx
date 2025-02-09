@@ -1,8 +1,7 @@
 "use client"
 
-import * as React from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const tabs = [
   { name: "Главная", path: "/" },
@@ -13,7 +12,6 @@ const tabs = [
 
 export function Tabs() {
   const pathname = usePathname();
-  const router = useRouter();
 
   return (
     <div className="container-mobile py-2">
@@ -23,15 +21,15 @@ export function Tabs() {
       <div className="mt-2">
         <nav className="flex -mx-1 overflow-x-auto scrollbar-hide">
           {tabs.map((tab) => (
-            <button
+            <Link
               key={tab.path}
-              onClick={() => router.push(tab.path)}
+              href={tab.path}
               className={`tab-button shrink-0 ${
                 pathname === tab.path ? 'active' : 'text-white/60'
               }`}
             >
               {tab.name}
-            </button>
+            </Link>
           ))}
         </nav>
       </div>

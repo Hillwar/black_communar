@@ -2,12 +2,11 @@
 
 import { Event } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
-import { CATEGORIES } from "@/lib/constants";
 import { motion } from "framer-motion";
 import { getDaySchedule } from "@/lib/constants";
 
 interface EventListProps {
-  events: Event[];
+  events: readonly Event[];
   selectedDate: Date | null;
 }
 

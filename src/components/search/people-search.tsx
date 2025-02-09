@@ -6,16 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CAMP_STAFF } from "@/lib/constants";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-interface Person {
-  id: string;
-  name: string;
-  role: string;
-  squad?: string;
-  telegram?: string;
-  phone?: string;
-}
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function PeopleSearch() {
   const [query, setQuery] = useState("");

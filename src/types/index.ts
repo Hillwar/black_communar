@@ -20,23 +20,35 @@ export interface WeatherData {
           icon: string;
         };
       };
+      hour: Array<{
+        time: string;
+        temp_c: number;
+        wind_kph: number;
+        chance_of_rain: number;
+        condition: {
+          text: string;
+          icon: string;
+        };
+      }>;
     }>;
   };
 }
 
 export interface Event {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  date: string;
-  time: string;
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly date: string;
+  readonly time: string;
+  readonly category: string;
 }
 
 export interface DayEvents {
-  date: string;
-  events: Event[];
+  readonly date: string;
+  readonly events: readonly Event[];
 }
+
+export type Events = readonly DayEvents[];
 
 export interface DutyShift {
   id: string;

@@ -6,6 +6,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { getClothingAdvice } from "@/lib/weather-utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion, AnimatePresence } from "framer-motion";
+import { WeatherData } from "@/types";
 
 // Моковые данные для прогноза на 3 дня
 const FORECAST_DATA = [
@@ -45,7 +46,7 @@ export function WeatherCard() {
     );
   }
 
-  if (error || !weather) {
+  if (error || !weather || !weather.current) {
     return (
       <Card className="glass-card w-full">
         <CardContent className="p-4">
@@ -55,9 +56,19 @@ export function WeatherCard() {
     );
   }
 
-  // Используем текущую погоду и почасовой прогноз
-  const currentWeather = weather?.current;
-  const hourlyForecast = weather?.forecast?.forecastday[0]?.hour || [];
+  const currentWeather = weather.current;
+  const hourlyForecast = weather.forecast?.forecastday[0]?.hour || [];
+
+  // Проверяем наличие необходимых данных перед использованием
+  if (!currentWeather.temp_c || !currentWeather.condition) {
+    return (
+      <Card className="glass-card w-full">
+        <CardContent className="p-4">
+          <div className="text-center">Данные о погоде недоступны</div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   const advice = getClothingAdvice(currentWeather.temp_c, currentWeather.condition.text);
 

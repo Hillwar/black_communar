@@ -46,4 +46,8 @@ export function useTelegramTheme() {
     buttonColor: theme?.button_color || 'blue',
     buttonTextColor: theme?.button_text_color || 'white',
   };
+}
+
+export function getTelegramUrl(username: string): string {
+  return `https://t.me/${username.replace('@', '')}`;
 } 

@@ -2,13 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Event } from "@/types";
-import { useState } from "react";
-import { isDateInRange, isDateSelectable } from "@/lib/constants";
+import { isDateSelectable } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 interface CalendarGridProps {
-  currentMonth: Date;
-  events: Event[];
+  events: readonly Event[];
   onSelectDate: (date: Date) => void;
   selectedDate?: Date | null;
 }
@@ -16,7 +14,6 @@ interface CalendarGridProps {
 const WEEKDAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
 export function CalendarGrid({ 
-  currentMonth, 
   events, 
   onSelectDate,
   selectedDate 
@@ -27,8 +24,8 @@ export function CalendarGrid({
   const startDay = startDate.getDay();
   const daysInMonth = endDate.getDate();
 
-  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-  const padding = Array.from({ length: (startDay + 6) % 7 }, (_, i) => null);
+  const days = Array.from({ length: daysInMonth }, (_, index) => index + 1);
+  const padding = Array.from({ length: (startDay + 6) % 7 }, () => null);
   const allDays = [...padding, ...days];
 
   return (
